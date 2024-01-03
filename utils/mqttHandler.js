@@ -7,6 +7,7 @@ const mqttHandler = mqtt.connect(host, options);
 
 mqttHandler.subscribe('temperatura/guardar');
 mqttHandler.subscribe('spo2/guardar');
+mqttHandler.subscribe('air/guardar');
 
 mqttHandler.on('connect', () => {
     console.log('Subscriber connected');

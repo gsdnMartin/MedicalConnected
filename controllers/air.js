@@ -1,5 +1,5 @@
 const { response } = require('express');
-const Spo2 = require('../models/spo2')
+const Air = require('../models/air')
 const mqtt = require('mqtt');
 const host = 'ws://localhost:9000'
 const clientId = 'webRaspi' 
@@ -7,27 +7,28 @@ const options = {clientId}
 
 module.exports.cambiarEstado = (req, res) => {
     respuesta = req.body
+    console.log(req.body)
     const publisher = mqtt.connect(host, options);
     publisher.on('connect', () => {
-        if(respuesta.state){ publisher.publish('spo2', 'on');}
-        else { publisher.publish('spo2', 'off'); }
+        if(respuesta.state){ publisher.publish('air', 'on');}
+        else { publisher.publish('air', 'off'); }
         publisher.end()
     });
     res.end()
 }
 
 module.exports.guadarInfo = async (req, res) => {
-    const resultado = await Spo2.find({ idPaciente: req.body.idPaciente })
+    const resultado = await Air.find({ idPaciente: req.body.idPaciente })
     if(!resultado.length){
-        const spo2 = new Spo2(req.body)
-        await spo2.save()
+        const air = new Air(req.body)
+        await air.save()
     }else{
-        const spo2 = await Spo2.findByIdAndUpdate(resultado[0]._id, { ...req.body });
-        await spo2.save()
+        const air = await Air.findByIdAndUpdate(resultado[0]._id, { ...req.body });
+        await air.save()
     } 
 }
 
 module.exports.recibirInfo = async (req, res) => {
-    const resultado = await Spo2.find({})
+    const resultado = await Air.find({})
     res.send(resultado)
 }
