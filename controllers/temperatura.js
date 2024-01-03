@@ -6,7 +6,6 @@ const options = {clientId}
 
 module.exports.cambiarEstado = (req, res) => {
     respuesta = req.body
-    console.log(respuesta)
     const publisher = mqtt.connect(host, options);
     publisher.on('connect', () => {
         if(respuesta.state){ publisher.publish('temp', 'on');}
