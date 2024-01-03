@@ -14,6 +14,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const temperaturaRoutes = require('./routes/temperatura');
 const spo2Routes = require('./routes/spo2');
 const airRoutes = require('./routes/air');
+const touchRoutes = require('./routes/touch');
 require('./utils/broker')
 require('./utils/mqttHandler')
 
@@ -85,6 +86,7 @@ app.use((req, res, next) => {
 app.use('/temperatura', temperaturaRoutes)
 app.use('/spo2', spo2Routes)
 app.use('/air', airRoutes)
+app.use('/touch', touchRoutes)
 
 app.get('/', (req, res) => {res.render('home')});
 
