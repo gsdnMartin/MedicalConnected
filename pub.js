@@ -15,12 +15,18 @@ function sleep(ms) {
 pub.subscribe('response');
 pub.subscribe('temp');
 pub.subscribe('spo2');
+pub.subscribe('card');
 pub.subscribe('air');
+pub.subscribe('amb');
+pub.subscribe('hum');
 pub.subscribe('touch');
 
 var temperatureState = true
 var spo2State = true
+var cardiacoState = true
 var airState = false
+var ambienteState = true
+var humedadState = true
 
 function sendData(topic, dato, state){
     pub.publish(topic, JSON.stringify({
@@ -53,10 +59,25 @@ pub.on('connect', async () => {
         } else {
             sendData('spo2/guardar', -1, false)
         }
+        if (cardiacoState) {
+            pythonExecute('spo2.py', i-1, 'cardiaco/guardar')
+        } else {
+            sendData('cardiaco/guardar', -1, false)
+        }
         if (airState) {
             pythonExecute('spo2.py', i+1, 'air/guardar')
         } else {
             sendData('air/guardar', -1, false)
+        }
+        if (ambienteState) {
+            pythonExecute('temp.py', i-2, 'ambiente/guardar')
+        } else {
+            sendData('ambiente/guardar', -1, false)
+        }
+        if (humedadState) {
+            pythonExecute('temp.py', i+2, 'humedad/guardar')
+        } else {
+            sendData('humedad/guardar', -1, false)
         }
         pythonExecute('touch.py', i, 'touch/alert')
         i++
@@ -77,11 +98,29 @@ pub.on('message', (topic, message) => {
     else if (topic === 'spo2' && message.toString() === 'off') {
         spo2State = false
     }
+    else if (topic === 'card' && message.toString() === 'on') {
+        cardiacoState = true
+    }
+    else if (topic === 'card' && message.toString() === 'off') {
+        cardiacoState = false
+    }
     else if (topic === 'air' && message.toString() === 'on') {
         airState = true
     }
     else if (topic === 'air' && message.toString() === 'off') {
         airState = false
+    }
+    else if (topic === 'amb' && message.toString() === 'on') {
+        ambienteState = true
+    }
+    else if (topic === 'amb' && message.toString() === 'off') {
+        ambienteState = false
+    }
+    else if (topic === 'hum' && message.toString() === 'on') {
+        humedadState = true
+    }
+    else if (topic === 'hum' && message.toString() === 'off') {
+        humedadState = false
     }
 });
 

@@ -31,8 +31,7 @@ async function recibirInformacion() {
                 temp.checked = true
             }
         }catch(e){
-            console.log("Hola error")
-            await sleep(4000)
+            console.log(e)
         }   
         await sleep(1000)
     }

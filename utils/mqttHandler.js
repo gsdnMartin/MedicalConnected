@@ -7,12 +7,11 @@ const mqttHandler = mqtt.connect(host, options);
 
 mqttHandler.subscribe('temperatura/guardar');
 mqttHandler.subscribe('spo2/guardar');
+mqttHandler.subscribe('cardiaco/guardar');
 mqttHandler.subscribe('air/guardar');
+mqttHandler.subscribe('ambiente/guardar');
+mqttHandler.subscribe('humedad/guardar');
 mqttHandler.subscribe('touch/alert');
-
-mqttHandler.on('connect', () => {
-    console.log('Subscriber connected');
-});
 
 mqttHandler.on('message', (topic, message) => {
     fetch("http://localhost:3000/"+topic, {

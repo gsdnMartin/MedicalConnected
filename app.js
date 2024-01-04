@@ -7,13 +7,17 @@ const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const passport = require('passport');
+const cors = require('cors') 
 const bodyParser = require('body-parser') 
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize')
 const temperaturaRoutes = require('./routes/temperatura');
 const spo2Routes = require('./routes/spo2');
+const cardiacoRoutes = require('./routes/cardiaco');
 const airRoutes = require('./routes/air');
+const ambienteRoutes = require('./routes/ambiente');
+const humedadRoutes = require('./routes/humedad');
 const touchRoutes = require('./routes/touch');
 require('./utils/broker')
 require('./utils/mqttHandler')
@@ -29,6 +33,7 @@ db.once("open", () => {
 });
 
 const app = express();
+app.use(cors()); 
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
@@ -85,7 +90,10 @@ app.use((req, res, next) => {
 
 app.use('/temperatura', temperaturaRoutes)
 app.use('/spo2', spo2Routes)
+app.use('/cardiaco', cardiacoRoutes)
 app.use('/air', airRoutes)
+app.use('/ambiente', ambienteRoutes)
+app.use('/humedad', humedadRoutes)
 app.use('/touch', touchRoutes)
 
 app.get('/', (req, res) => {res.render('home')});

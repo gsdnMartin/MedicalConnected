@@ -2,6 +2,7 @@ const aedes = require('aedes')()
 const httpServer = require('http').createServer()
 const WebSocket = require('ws')
 const wsPort = 9000
+var devices = []
 
 // Here we are creating the Websocket Server that is using the HTTP Server...
 const wss = new WebSocket.Server({ server: httpServer })
@@ -15,7 +16,10 @@ httpServer.listen(wsPort, () => {
 })
 
 aedes.on('client', (client) => {
-  console.log('new client', client.id)
+  if(!devices.includes(client.id)){
+    console.log('new client', client.id)
+    devices.unshift(client.id)
+  }
 })
 
 aedes.on('clientError', function (client, err) {
