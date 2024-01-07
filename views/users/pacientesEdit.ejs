@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate')%>
+    <div class="container">
+        <%- include('../partials/navbar')%>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container px-2 py-5">
+        <h2 class="pb-5 text-center">Editar Paciente</h2>
+        <form class="row g-3" action="/pacientes/edit/<%= user._id %>?_method=PUT" method="post">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="Nombre" value="<%= user.Nombre %>">
+            </div>
+            <div class="col-md-6">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="Apellido" value="<%= user.Apellido %>">
+            </div>
+            <div class="col-md-1">
+                <label for="edad" class="form-label">Edad</label>
+                <input type="number" class="form-control" id="edad" name="Edad" min="0" max="120" value="<%= user.Edad %>">
+            </div>
+            <div class="col-md-5">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" value="<%= user.FechaNacimiento %>">
+            </div>
+            <div class="col-md-6">
+                <label for="direccion" class="form-label">Direccion</label>
+                <input type="text" class="form-control" id="direccion" name="Direccion" value="<%= user.Direccion %>">
+            </div>
+            <div class="col-md-3">
+                <label for="ocupacion" class="form-label">Ocupacion</label>
+                <input type="text" class="form-control" id="ocupacion" name="Ocupacion" value="<%= user.Ocupacion %>">
+            </div>
+            <div class="col-md-3">
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="number" class="form-control" id="telefono" name="NumeroContacto" value="<%= user.NumeroContacto %>">
+            </div>
+            <div class="col-md-6">
+                <label for="medico" class="form-label">Medico Responsable</label>
+                <input type="text" class="form-control" id="medico" name="MedicoResponsable" value="<%= user.MedicoResponsable %>">
+            </div>
+            <div class="col-md-2">
+                <label for="sangre" class="form-label">Grupo Sanguineo</label>
+                <input type="text" class="form-control" id="sangre" name="GrupoSanguineo" value="<%= user.GrupoSanguineo %>">
+            </div>
+            <div class="col-md-2">
+                <label for="sexo" class="form-label">Sexo</label>
+                <input type="text" class="form-control" id="sexo" name="Sexo" value="<%= user.Sexo %>">
+            </div>
+            <div class="col-md-4">
+                <label for="habitacion" class="form-label">Habitacion</label>
+                <input type="text" class="form-control" id="habitacion" name="Habitacion">
+            </div>
+            <div class="mb-2">
+                <label for="alergias" class="form-label">Alergias</label>
+                <textarea class="form-control" id="alergias" rows="2" name="Alergias" value="<%= user.Alergias %>"></textarea>
+            </div>
+            <div class="mb-2">
+                <label for="cronicas" class="form-label">Enfermedades Cronicas</label>
+                <textarea class="form-control" id="cronicas" rows="2" name="EnfermedadesCronicas" value="<%= user.EnfermedadesCronicas %>"></textarea>
+            </div>
+            <div class="mb-2">
+                <label for="motivo" class="form-label">Motivo de Ingreso</label>
+                <textarea class="form-control" id="motivo" rows="2" name="MotivoIngreso" value="<%= user.MotivoIngreso %>"></textarea>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+        </form>
+    </div>

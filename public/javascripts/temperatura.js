@@ -31,7 +31,13 @@ async function recibirInformacion() {
                 temp.checked = true
             }
         }catch(e){
-            console.log(e)
+            temperaturaDato.classList.remove("text-danger")
+            temperaturaDato.classList.add("text-primary")
+            temperaturaIcon.classList.add("bg-light")
+            temperaturaIcon.classList.remove("bg-danger") 
+            temperaturaDato.innerText = "Apagado"
+            temp = document.getElementById('tempSensor')
+            temp.checked = false
         }   
         await sleep(1000)
     }

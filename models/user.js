@@ -7,7 +7,13 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    pacientes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Paciente'
+        }
+    ]
 });
 
 UserSchema.plugin(passportLocalMongoose);

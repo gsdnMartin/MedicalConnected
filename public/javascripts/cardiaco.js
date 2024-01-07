@@ -31,8 +31,13 @@ async function recibirInformacion() {
                 card.checked = true
             }
         }catch(e){
-            console.log(e)
-            await sleep(4000)
+            cardiacoDato.classList.remove("text-danger")
+            cardiacoDato.classList.add("text-primary")
+            cardiacoIcon.classList.add("bg-light")
+            cardiacoIcon.classList.remove("bg-danger")  
+            cardiacoDato.innerText = "Apagado"
+            card = document.getElementById('cardiacoSensor')
+            card.checked = false   
         }   
         await sleep(1000)
     }

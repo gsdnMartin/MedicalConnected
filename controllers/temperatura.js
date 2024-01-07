@@ -1,4 +1,5 @@
 const Temperatura = require('../models/temperatura')
+const Paciente = require('../models/paciente')
 const mqtt = require('mqtt');
 const host = 'ws://localhost:9000'
 const clientId = 'webRaspi'
@@ -27,9 +28,9 @@ module.exports.guadarInfo = async (req, res) => {
 }
 
 module.exports.recibirInfo = async (req, res) => {
-    const resultado = await Temperatura.find({})
-    if(resultado.length==0){
-        res.sendStatus(500)
+    const resultado = await Temperatura.find({idPaciente: req.session.paciente})
+    if(resultado.length === 0){
+        res.sendStatus(200)
     }else{
         res.send(resultado)
     }

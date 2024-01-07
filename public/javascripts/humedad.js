@@ -31,8 +31,13 @@ async function recibirInformacion() {
                 hum.checked = true
             }
         }catch(e){
-            console.log(e)
-            await sleep(4000)
+            humedadDato.classList.remove("text-danger")
+            humedadDato.classList.add("text-primary")
+            humedadIcon.classList.add("bg-light")
+            humedadIcon.classList.remove("bg-danger") 
+            humedadDato.innerText = "Apagado"
+            hum = document.getElementById('humSensor')
+            hum.checked = false 
         }   
         await sleep(1000)
     }

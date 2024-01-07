@@ -13,9 +13,9 @@ module.exports.recibirAlerta = async (req, res) => {
 }
 
 module.exports.enviarAlerta = async (req, res) => {
-    const resultado = await Touch.find({})
-    if(resultado.length==0){
-        res.send(500)
+    const resultado = await Touch.find({idPaciente: req.session.paciente})
+    if(resultado.length===0){
+        res.sendStatus(200)
     }else{
         if(resultado[0].lectura == 0){
             resultado[0].estado = false

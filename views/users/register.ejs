@@ -1,0 +1,35 @@
+<% layout('layouts/home')%>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0 text-dark">Medical Connected</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link text-secondary" aria-current="page" href="/">Inicio</a>
+                    <a class="nav-link active" href="/register">Registro</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="form-signin">
+            <%- include('../partials/flash')%>
+            <form action="/register" method="post">
+                <img class="mb-4" src="/svg/main.svg" width="150">
+                <h1 class="h3 mb-3 text-dark fw-normal">Registro</h1>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingUser" placeholder="example" name="username">
+                    <label for="floatingUser">Nombre de Usuario</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+                    <label for="floatingInput">Correo Electronico</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Constraseña" name="password">
+                    <label for="floatingPassword">Constraseña</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary mt-2 mb-5 " type="submit">Registrarse</button>
+            </form>
+        </main>

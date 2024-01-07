@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+    <%- include('../partials/navbar')%>
+</div>
+
+<div class="b-example-divider"></div>
+
+<div class="container px-2 py-5">
+    <%- include('../partials/flash')%>
+    <h2 class="pb-2 text-center">Buen dia, <%= user[0].username %></h2>
+    <a href="/pacientes/registrar"><button type="button" class="btn btn-primary">Registrar Paciente</button></a>
+</div>
+<div class="container px-4 py-2" id="hanging-icons">
+    <h2 class="pb-2 border-bottom justify-content-center">Pacientes</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-1">
+        <% if (user[0].pacientes.length !== 0) { %>
+            <% for(let paciente of user[0].pacientes) { %>
+                <div class="col d-flex align-items-start">
+                    <div class="icon-square w-25 h-100 bg-light text-white flex-shrink-0 me-3" id="touchIcon">
+                        <img src="/png/paciente.png" height="150">
+                    </div>
+                    <div class="w-50 h-100">
+                        <p>Nombre Paciente: <%= paciente.Apellido %>, <%= paciente.Nombre %></p>
+                        <p>Edad: <%= paciente.Edad %></p>
+                        <% const date = new Date(paciente.FechaNacimiento) %>
+                        <p>Fecha Nacimiento: <%= date.toDateString() %></p>
+                        <p>Medico Responsable: <%= paciente.MedicoResponsable %></p>
+                    </div>
+                    <div class="w-50 h-100 " id="touchIcon">
+                        <form class="mb-3" action="/pacientes/edit/<%= paciente._id %>" method="get">
+                            <button type="submit" class="btn btn-info">Editar Paciente</button>
+                        </form>
+                        <form class="mb-3" action="/pacientes/<%= paciente._id %>?_method=DELETE" method="post">
+                            <button type="submit" class="btn btn-danger">Eliminar Paciente</button>
+                        </form>
+                        <a href="/dashboard/<%= paciente._id %>"><button type="button" class="btn btn-success">Dashboard</button></a>
+                    </div>
+                </div> 
+            <% } %>
+        <% } else { %>
+            <h2 class="pb-2 text-center">No hay pacientes registrados</h2>
+        <% } %>
+    </div>
+</div>

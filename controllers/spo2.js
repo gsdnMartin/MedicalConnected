@@ -28,6 +28,10 @@ module.exports.guadarInfo = async (req, res) => {
 }
 
 module.exports.recibirInfo = async (req, res) => {
-    const resultado = await Spo2.find({})
-    res.send(resultado)
+    const resultado = await Spo2.find({idPaciente: req.session.paciente})
+    if(resultado.length===0){
+        res.sendStatus(200)
+    }else{
+        res.send(resultado)
+    }
 }

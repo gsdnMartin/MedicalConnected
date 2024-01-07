@@ -31,8 +31,13 @@ async function recibirInformacion() {
                 amb.checked = true
             }
         }catch(e){
-            console.log(e)
-            await sleep(4000)
+            ambienteDato.classList.remove("text-danger")
+            ambienteDato.classList.add("text-primary")
+            ambienteIcon.classList.add("bg-light")
+            ambienteIcon.classList.remove("bg-danger")  
+            ambienteDato.innerText = "Apagado"
+            amb = document.getElementById('ambSensor')
+            amb.checked = false
         }   
         await sleep(1000)
     }

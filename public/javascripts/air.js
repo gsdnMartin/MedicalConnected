@@ -31,8 +31,12 @@ async function recibirInformacion() {
                 air.checked = true
             }
         }catch(e){
-            console.log(e)
-            await sleep(4000)
+            aireDato.classList.remove("text-danger")
+                aireDato.classList.add("text-primary")
+                aireIcon.classList.add("bg-light")
+                aireIcon.classList.remove("bg-danger") 
+                aireDato.innerText = "Apagado"
+                air.checked = false 
         }   
         await sleep(1000)
     }

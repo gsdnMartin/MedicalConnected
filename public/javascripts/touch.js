@@ -24,8 +24,11 @@ async function recibirInformacion() {
                 touchDato.innerText = "Alerta" 
             }
         }catch(e){
-            console.log(e)
-            await sleep(4000)
+            touchDato.classList.remove("text-danger")
+            touchDato.classList.add("text-primary")
+            touchIcon.classList.add("bg-light")
+            touchIcon.classList.remove("bg-danger")  
+            touchDato.innerText = "--"
         }   
         await sleep(1000)
     }

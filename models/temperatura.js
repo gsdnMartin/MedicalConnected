@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TemperaturaSchema = new Schema({
-    idDevice: Number,
-    idPaciente: Number,
+    idDevice: String,
+    idPaciente: String,
     estado: Boolean,
     lectura: Number,
     historico: [

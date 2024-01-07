@@ -1,23 +1,28 @@
 <% layout('layouts/boilerplate')%>
 <div class="container">
-    <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <h4 class="float-md-start mb-0 text-dark">Medical Connected</h4>
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Pacientes</a></li>
-        </ul>
-
-        <div class="col-md-3 text-end">
-            <a class="btn btn-outline-primary me-2" href="/logout">Cerrar Sesion</a>
-        </div>
-    </header>
+    <%- include('../partials/navbar')%>
 </div>
 
 <div class="b-example-divider"></div>
 
-<div class="container px-2 py-5">
-    <h2 class="pb-2 text-center">Buen dia, Gustavo Daniel</h2>
+<div class="container px-2 py-5 text-end">
+    <h4 class="pb-2 text-center">Paciente: <%= user.Apellido %>, <%= user.Nombre %></h4>
+    <% if (user.estaConectado) { %>
+        <button type="button" class="btn btn-danger" id="connectButton" value="<%= user._id %>">Desconectar</button>
+    <% } else { %>
+        <button type="button" class="btn btn-success" id="connectButton" value="<%= user._id %>">Conectar</button>
+    <% } %>
+
+    <!--
+    <% if (user.estaConectado) { %>
+        <h6 class="pb-2" id="deviceState">Estado: Conectado</h6>
+        <h6 class="pb-2" id="deviceName">Dispositivo: MC-<%= user.Habitacion %></h6>
+        <button type="button" class="btn" id="connectButton" value="<%= user._id %>">Desconectar</button>
+    <% } else { %>
+        <h6 class="pb-2" id="deviceState">Estado: Desconectado</h6>
+        <button type="button" class="btn" id="connectButton" value="<%= user._id %>">Conectar</button>
+    <% } %>
+    --> 
 </div>
 
 <div class="container px-4 py-2" id="hanging-icons">
@@ -31,7 +36,16 @@
                 <h2>Boton Paciente</h2>
                 <h3 class="mt-3 text-primary" id="touchDato"></h3>
             </div>
-        </div>   
+        </div> 
+        <div class="col d-flex align-items-start">
+            <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="touchIcon">
+                <img src="/png/bed.png" height="150">
+            </div>
+            <div>
+                <h2>Detector Paciente</h2>
+                <h3 class="mt-3 text-primary" id="touchDato"></h3>
+            </div>
+        </div>     
     </div>
 </div>
 
@@ -43,7 +57,7 @@
                 <img src="/png/fiebre.png" height="100">
             </div>
             <div>
-                <h2>Temperatura</h2>
+                <h2>Temperatura Paciente</h2>
                 <h3 class="mt-3 text-primary" id="temperaturaDato"></h3>
                 <div class="form-check form-switch p-0">
                     <div class="d-flex flex-column-reverse gap-1">
@@ -53,6 +67,21 @@
                     </div>
             </div>
         </div> 
+        <div class="col d-flex align-items-start">
+            <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="ambIcon">
+                <img src="/svg/thermometer.svg" height="100">
+            </div>
+            <div>
+                <h2>Temperatura Ambiente</h2>
+                <h3 class="mt-3 text-primary" id="ambDato"></h3>
+                <div class="form-check form-switch p-0">
+                    <div class="d-flex flex-column-reverse gap-1">
+                        <input class="form-check-input ms-4" type="checkbox" role="switch" id="ambSensor" />
+                        <label class="form-check-label" for="ambSensor">Estado Sensor</label>
+                    </div>
+                    </div>
+            </div>
+        </div>
         <div class="col d-flex align-items-start">
             <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="spo2Icon">
                 <img src="/png/oximeter.png" height="100">
@@ -99,21 +128,6 @@
             </div>
         </div>
         <div class="col d-flex align-items-start">
-            <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="ambIcon">
-                <img src="/svg/thermometer.svg" height="100">
-            </div>
-            <div>
-                <h2>Temperatura Ambiente</h2>
-                <h3 class="mt-3 text-primary" id="ambDato"></h3>
-                <div class="form-check form-switch p-0">
-                    <div class="d-flex flex-column-reverse gap-1">
-                        <input class="form-check-input ms-4" type="checkbox" role="switch" id="ambSensor" />
-                        <label class="form-check-label" for="ambSensor">Estado Sensor</label>
-                    </div>
-                    </div>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
             <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="humIcon">
                 <img src="/png/humedad.png" height="100">
             </div>
@@ -134,6 +148,7 @@
 
 
 <script>
+    connect = document.getElementById('connectButton')
     temp = document.getElementById('tempSensor')
     spo2 = document.getElementById('spo2Sensor')
     card = document.getElementById('cardiacoSensor')
@@ -157,6 +172,26 @@
     air.addEventListener('change', function () {sensorIsCheck(this.checked, "air")})
     amb.addEventListener('change', function () {sensorIsCheck(this.checked, "ambiente")})
     hum.addEventListener('change', function () {sensorIsCheck(this.checked, "humedad")})
+
+    /*if(connect.innerText === 'Desconectar'){
+        connect.classList.add('btn-danger')
+    }else {
+        connect.classList.add('btn-success')
+    }*/
+
+    connect.addEventListener('click', function () {
+        if(this.innerText === 'Conectar'){
+            this.classList.remove('btn-success')
+            this.classList.add('btn-danger')
+            this.innerText = 'Desconectar'
+            sensorIsCheck(this.value, "dispositivo")
+        }else {
+            this.classList.remove('btn-danger')
+            this.classList.add('btn-success')
+            this.innerText = 'Conectar'
+            sensorIsCheck("off", "dispositivo")
+        }
+    })
 
 </script>
 <script src="/javascripts/temperatura.js"></script>

@@ -27,9 +27,9 @@ module.exports.guadarInfo = async (req, res) => {
 }
 
 module.exports.recibirInfo = async (req, res) => {
-    const resultado = await Humedad.find({})
-    if(resultado.length==0){
-        res.sendStatus(500)
+    const resultado = await Humedad.find({idPaciente: req.session.paciente})
+    if(resultado.length===0){
+        res.sendStatus(200)
     }else{
         res.send(resultado)
     }

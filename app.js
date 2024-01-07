@@ -19,6 +19,11 @@ const airRoutes = require('./routes/air');
 const ambienteRoutes = require('./routes/ambiente');
 const humedadRoutes = require('./routes/humedad');
 const touchRoutes = require('./routes/touch');
+const userRoutes = require('./routes/user');
+const pacienteRoutes = require('./routes/paciente');
+const dispositivoRoutes = require('./routes/dispositivo');
+const { isLoggedIn } = require('./middleware');
+
 require('./utils/broker')
 require('./utils/mqttHandler')
 
@@ -88,15 +93,18 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use('/', userRoutes)
+app.use('/pacientes', isLoggedIn, pacienteRoutes)
 app.use('/temperatura', temperaturaRoutes)
 app.use('/spo2', spo2Routes)
 app.use('/cardiaco', cardiacoRoutes)
-app.use('/air', airRoutes)
+app.use('/air', airRoutes) 
 app.use('/ambiente', ambienteRoutes)
 app.use('/humedad', humedadRoutes)
 app.use('/touch', touchRoutes)
+app.use('/dispositivo', dispositivoRoutes)
 
-app.get('/', (req, res) => {res.render('home')});
+app.get('/', (req, res) => {res.redirect('/login')}); 
 
 app.get('/dashboard', (req, res) => {res.render('dashboard')});
 
