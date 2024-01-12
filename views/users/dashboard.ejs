@@ -7,22 +7,12 @@
 
 <div class="container px-2 py-5 text-end">
     <h4 class="pb-2 text-center">Paciente: <%= user.Apellido %>, <%= user.Nombre %></h4>
+    <p>Habitacion: <%= user.Habitacion %></p>
     <% if (user.estaConectado) { %>
         <button type="button" class="btn btn-danger" id="connectButton" value="<%= user._id %>">Desconectar</button>
     <% } else { %>
         <button type="button" class="btn btn-success" id="connectButton" value="<%= user._id %>">Conectar</button>
     <% } %>
-
-    <!--
-    <% if (user.estaConectado) { %>
-        <h6 class="pb-2" id="deviceState">Estado: Conectado</h6>
-        <h6 class="pb-2" id="deviceName">Dispositivo: MC-<%= user.Habitacion %></h6>
-        <button type="button" class="btn" id="connectButton" value="<%= user._id %>">Desconectar</button>
-    <% } else { %>
-        <h6 class="pb-2" id="deviceState">Estado: Desconectado</h6>
-        <button type="button" class="btn" id="connectButton" value="<%= user._id %>">Conectar</button>
-    <% } %>
-    --> 
 </div>
 
 <div class="container px-4 py-2" id="hanging-icons">
@@ -64,9 +54,10 @@
                         <input class="form-check-input ms-4" type="checkbox" role="switch" id="tempSensor" />
                         <label class="form-check-label" for="tempSensor">Estado Sensor</label>
                     </div>
-                    </div>
+                </div>
             </div>
         </div> 
+
         <div class="col d-flex align-items-start">
             <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="ambIcon">
                 <img src="/svg/thermometer.svg" height="100">
@@ -172,12 +163,6 @@
     air.addEventListener('change', function () {sensorIsCheck(this.checked, "air")})
     amb.addEventListener('change', function () {sensorIsCheck(this.checked, "ambiente")})
     hum.addEventListener('change', function () {sensorIsCheck(this.checked, "humedad")})
-
-    /*if(connect.innerText === 'Desconectar'){
-        connect.classList.add('btn-danger')
-    }else {
-        connect.classList.add('btn-success')
-    }*/
 
     connect.addEventListener('click', function () {
         if(this.innerText === 'Conectar'){

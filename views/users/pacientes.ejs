@@ -22,9 +22,8 @@
                     <div class="w-50 h-100">
                         <p>Nombre Paciente: <%= paciente.Apellido %>, <%= paciente.Nombre %></p>
                         <p>Edad: <%= paciente.Edad %></p>
-                        <% const date = new Date(paciente.FechaNacimiento) %>
-                        <p>Fecha Nacimiento: <%= date.toDateString() %></p>
                         <p>Medico Responsable: <%= paciente.MedicoResponsable %></p>
+                        <p>Habitacion: <%= paciente.Habitacion %></p>
                     </div>
                     <div class="w-50 h-100 " id="touchIcon">
                         <form class="mb-3" action="/pacientes/edit/<%= paciente._id %>" method="get">

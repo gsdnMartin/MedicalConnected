@@ -11,7 +11,7 @@ async function recibirInformacion() {
         try{
             const response = await fetch("http://localhost:3000/temperatura/guardar");
             const dato = await response.json();
-            if((dato[0].lectura >= 35 && dato[0].lectura<=38) || dato[0].lectura === -1){
+            if((dato[0].lectura >= 36.5 && dato[0].lectura<=38) || dato[0].lectura === -1){
                 temperaturaDato.classList.remove("text-danger")
                 temperaturaDato.classList.add("text-primary")
                 temperaturaIcon.classList.add("bg-light")

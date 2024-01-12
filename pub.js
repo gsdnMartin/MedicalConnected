@@ -187,22 +187,3 @@ pub.on('error', (error) => {
     pub.end()
 });
 
-
-/*
-const fs = require('fs');
-
-
-let defaultConf = {
-    idDevice: 'Habitacion 1',
-    idPaciente: null,
-    estado: false,
-    temperatureState : false,
-    spo2State : false,
-    cardiacoState : false,
-    airState : false,
-    ambienteState : false,
-    humedadState : false
-};
-
-fs.writeFileSync("test.json",JSON.stringify(defaultConf))
-*/
