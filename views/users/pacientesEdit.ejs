@@ -10,59 +10,63 @@
         <form class="row g-3" action="/pacientes/edit/<%= user._id %>?_method=PUT" method="post">
             <div class="col-md-6">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="Nombre" value="<%= user.Nombre %>">
+                <input type="text" class="form-control" id="nombre" name="Nombre" value="<%= user.Nombre %>" required>
             </div>
             <div class="col-md-6">
                 <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" name="Apellido" value="<%= user.Apellido %>">
+                <input type="text" class="form-control" id="apellido" name="Apellido" value="<%= user.Apellido %>" required>
             </div>
             <div class="col-md-1">
                 <label for="edad" class="form-label">Edad</label>
-                <input type="number" class="form-control" id="edad" name="Edad" min="0" max="120" value="<%= user.Edad %>">
+                <input type="number" class="form-control" id="edad" name="Edad" min="0" max="120" value="<%= user.Edad %>" required>
             </div>
             <div class="col-md-5">
                 <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" value="<%= user.FechaNacimiento %>">
+                <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" value="<%= user.FechaNacimiento %>" required>
             </div>
             <div class="col-md-6">
                 <label for="direccion" class="form-label">Direccion</label>
-                <input type="text" class="form-control" id="direccion" name="Direccion" value="<%= user.Direccion %>">
+                <input type="text" class="form-control" id="direccion" name="Direccion" value="<%= user.Direccion %>" required>
             </div>
             <div class="col-md-3">
                 <label for="ocupacion" class="form-label">Ocupacion</label>
-                <input type="text" class="form-control" id="ocupacion" name="Ocupacion" value="<%= user.Ocupacion %>">
+                <input type="text" class="form-control" id="ocupacion" name="Ocupacion" value="<%= user.Ocupacion %>" required>
             </div>
             <div class="col-md-3">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="number" class="form-control" id="telefono" name="NumeroContacto" value="<%= user.NumeroContacto %>">
+                <input type="number" class="form-control" id="telefono" name="NumeroContacto" value="<%= user.NumeroContacto %>" required>
             </div>
             <div class="col-md-6">
                 <label for="medico" class="form-label">Medico Responsable</label>
-                <input type="text" class="form-control" id="medico" name="MedicoResponsable" value="<%= user.MedicoResponsable %>">
+                <input type="text" class="form-control" id="medico" name="MedicoResponsable" value="<%= user.MedicoResponsable %>" required>
             </div>
             <div class="col-md-2">
                 <label for="sangre" class="form-label">Grupo Sanguineo</label>
-                <input type="text" class="form-control" id="sangre" name="GrupoSanguineo" value="<%= user.GrupoSanguineo %>">
+                <input type="text" class="form-control" id="sangre" name="GrupoSanguineo" value="<%= user.GrupoSanguineo %>" required>
             </div>
             <div class="col-md-2">
                 <label for="sexo" class="form-label">Sexo</label>
-                <input type="text" class="form-control" id="sexo" name="Sexo" value="<%= user.Sexo %>">
+                <input type="text" class="form-control" id="sexo" name="Sexo" value="<%= user.Sexo %>" required>
             </div>
             <div class="col-md-4">
                 <label for="habitacion" class="form-label">Habitacion</label>
-                <input type="text" class="form-control" id="habitacion" name="Habitacion">
+                <input type="text" class="form-control" id="habitacion" name="Habitacion" required>
             </div>
             <div class="mb-2">
                 <label for="alergias" class="form-label">Alergias</label>
-                <textarea class="form-control" id="alergias" rows="2" name="Alergias" value="<%= user.Alergias %>"></textarea>
+                <textarea class="form-control" id="alergias" rows="2" name="Alergias" value="<%= user.Alergias %>" required></textarea>
             </div>
             <div class="mb-2">
                 <label for="cronicas" class="form-label">Enfermedades Cronicas</label>
-                <textarea class="form-control" id="cronicas" rows="2" name="EnfermedadesCronicas" value="<%= user.EnfermedadesCronicas %>"></textarea>
+                <textarea class="form-control" id="cronicas" rows="2" name="EnfermedadesCronicas" value="<%= user.EnfermedadesCronicas %>" required></textarea>
             </div>
             <div class="mb-2">
                 <label for="motivo" class="form-label">Motivo de Ingreso</label>
-                <textarea class="form-control" id="motivo" rows="2" name="MotivoIngreso" value="<%= user.MotivoIngreso %>"></textarea>
+                <textarea class="form-control" id="motivo" rows="2" name="MotivoIngreso" value="<%= user.MotivoIngreso %>" required></textarea>
+            </div>
+            <div class="mb-2">
+                <label for="medicamentos" class="form-label">Medicamentos</label>
+                <textarea class="form-control" id="medicamentos" rows="4" name="Medicamentos" value="<%= user.Medicamentos %>" required></textarea>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Actualizar</button>

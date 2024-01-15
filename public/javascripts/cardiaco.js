@@ -27,7 +27,7 @@ async function recibirInformacion() {
                 card = document.getElementById('cardiacoSensor')
                 card.checked = false
             }else{
-                cardiacoDato.innerText = dato[0].lectura  
+                cardiacoDato.innerText = dato[0].lectura + ' ppm'
                 card.checked = true
             }
         }catch(e){

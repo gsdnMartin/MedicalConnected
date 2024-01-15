@@ -1,15 +1,9 @@
 const fs = require('fs');
 const mqtt = require('mqtt');
-const { spaw, spawn } = require('child_process');
+const { spawn } = require('child_process');
 const host = 'ws://localhost:9000'
 const clientId = 'raspi'
 const options = { clientId }
-
-const pub = mqtt.connect(host, options);
-
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 var defaultConf = {
     idDevice: 'Habitacion 1',
@@ -29,15 +23,7 @@ var defaultConf = {
     humedadSendOff: true
 };
 
-pub.subscribe('conexion/web/searching');
-pub.subscribe('temp');
-pub.subscribe('spo2');
-pub.subscribe('card');
-pub.subscribe('air');
-pub.subscribe('amb');
-pub.subscribe('hum');
-pub.subscribe('touch');
-
+/*
 function initializing(){
     defaultConf = fs.readFileSync("test.json");
 }
@@ -45,7 +31,7 @@ function initializing(){
 function writeData(){
     fs.writeFileSync("test.json",JSON.stringify(defaultConf))
 }
-
+*/
 function sendData(topic, dato, state){
     if(defaultConf.idPaciente !== null){
         pub.publish(topic, JSON.stringify({
@@ -53,9 +39,13 @@ function sendData(topic, dato, state){
                 "idPaciente": defaultConf.idPaciente,
                 "estado": state,
                 "lectura": dato,
-            }))
+        }))
     }
     console.log(topic, dato, defaultConf.idPaciente)
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function pythonExecute(file, i, topic) {
@@ -66,6 +56,19 @@ function pythonExecute(file, i, topic) {
         sendData(topic, dato, true)
     })
 }
+
+const pub = mqtt.connect(host, options);
+
+pub.subscribe('conexion/web/searching');
+pub.subscribe('temp');
+pub.subscribe('spo2');
+pub.subscribe('card');
+pub.subscribe('air');
+pub.subscribe('amb');
+pub.subscribe('hum');
+pub.subscribe('touch');
+pub.subscribe('ultra');
+pub.subscribe('rfid');
 
 pub.on('connect', async () => {
     i = 0
@@ -119,6 +122,7 @@ pub.on('connect', async () => {
                 defaultConf.humedadSendOff = false
             }
             pythonExecute('touch.py', i, 'touch/alert')
+            pythonExecute('touch.py', i+1, 'ultrasonico/alert')
             i++
             await sleep(2000);
         } 
@@ -139,6 +143,7 @@ pub.on('message', (topic, message) => {
             sendData('ambiente/guardar', -1, false)
             sendData('humedad/guardar', -1, false)
             sendData('touch/alert', -1, false)
+            sendData('ultrasonico/alert', -1, false)
             defaultConf.idPaciente = null
             defaultConf.conexion = false
         }
@@ -179,6 +184,9 @@ pub.on('message', (topic, message) => {
     else if (topic === 'hum' && message.toString() === 'off') {
         defaultConf.humedadState = false
     }
+    else{
+        console.log(message.toString())
+    }
     
 });
 
@@ -186,4 +194,3 @@ pub.on('error', (error) => {
     console.error('Error publishing or receiving message:', error);
     pub.end()
 });
-

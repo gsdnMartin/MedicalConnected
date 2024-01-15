@@ -26,7 +26,7 @@ async function recibirInformacion() {
                 spo2Dato.innerText = "Apagado"
                 spo2Sensor.checked = false
             }else{
-                spo2Dato.innerText = dato[0].lectura  
+                spo2Dato.innerText = dato[0].lectura + ' %'
                 spo2Sensor.checked = true
             }
         }catch{

@@ -24,4 +24,7 @@ router.get('/logout', (req, res, next) => {
 router.route('/dashboard/:id')
     .get(users.renderDashboard)
 
+router.route('/medicamentos')
+    .get(users.renderMedicamentos)
+
 module.exports = router;

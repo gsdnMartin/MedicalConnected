@@ -1,1 +1,17 @@
-{"idDevice":"Habitacion 1","idPaciente":1,"estado":false,"temperatureState":false,"temperaturaSendOff":false,"spo2State":false,"cardiacoState":false,"airState":false,"ambienteState":false,"humedadState":false}
+{
+    "idDevice": "Habitacion 1",
+    "idPaciente": "65a1e1af829cae64cfc000b8",
+    "conexion": true,
+    "temperatureState" : false,
+    "temperaturaSendOff": true,
+    "spo2State" : false,
+    "spo2SendOff": true,
+    "cardiacoState" : false,
+    "cardiacoSendOff": true,
+    "airState" : false,
+    "airSendOff": true,
+    "ambienteState" : false,
+    "ambienteSendOff": true,
+    "humedadState" : false,
+    "humedadSendOff": true
+}

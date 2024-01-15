@@ -19,11 +19,12 @@ const airRoutes = require('./routes/air');
 const ambienteRoutes = require('./routes/ambiente');
 const humedadRoutes = require('./routes/humedad');
 const touchRoutes = require('./routes/touch');
+const ultrasonicoRoutes = require('./routes/ultrasonico');
+const rfidRoutes = require('./routes/rfid');
 const userRoutes = require('./routes/user');
 const pacienteRoutes = require('./routes/paciente');
 const dispositivoRoutes = require('./routes/dispositivo');
 const { isLoggedIn } = require('./middleware');
-
 require('./utils/broker')
 require('./utils/mqttHandler')
 
@@ -72,7 +73,7 @@ const sessionConfig = {
     cookie: {
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        maxAge: 1000 * 60 * 60 * 24 * 7,
     }
 }
 
@@ -102,6 +103,8 @@ app.use('/air', airRoutes)
 app.use('/ambiente', ambienteRoutes)
 app.use('/humedad', humedadRoutes)
 app.use('/touch', touchRoutes)
+app.use('/ultrasonico', ultrasonicoRoutes)
+app.use('/rfid', rfidRoutes)
 app.use('/dispositivo', dispositivoRoutes)
 
 app.get('/', (req, res) => {res.redirect('/login')}); 

@@ -27,7 +27,7 @@ async function recibirInformacion() {
                 temp = document.getElementById('tempSensor')
                 temp.checked = false
             }else{
-                temperaturaDato.innerText = dato[0].lectura  
+                temperaturaDato.innerText = dato[0].lectura +' °C'
                 temp.checked = true
             }
         }catch(e){

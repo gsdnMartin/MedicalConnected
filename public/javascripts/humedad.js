@@ -27,7 +27,7 @@ async function recibirInformacion() {
                 hum = document.getElementById('humSensor')
                 hum.checked = false
             }else{
-                humedadDato.innerText = dato[0].lectura  
+                humedadDato.innerText = dato[0].lectura + ' %'
                 hum.checked = true
             }
         }catch(e){

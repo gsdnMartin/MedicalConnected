@@ -39,3 +39,13 @@ module.exports.renderDashboard = async (req, res) => {
     req.session.paciente=req.params.id
     res.render('users/dashboard', {user});
 }
+
+module.exports.renderMedicamentos = async (req, res) => {
+    try{
+        const user = await User.find({username: req.session.passport.user});
+        const pacientes = await Paciente.find({Hospital: user[0]._id});
+        res.render('users/rfid', {pacientes})
+    }catch{
+        res.redirect('/')
+    }
+}

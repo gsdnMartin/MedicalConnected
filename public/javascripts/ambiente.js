@@ -27,7 +27,7 @@ async function recibirInformacion() {
                 amb = document.getElementById('ambSensor')
                 amb.checked = false
             }else{
-                ambienteDato.innerText = dato[0].lectura  
+                ambienteDato.innerText = dato[0].lectura + ' °C'
                 amb.checked = true
             }
         }catch(e){

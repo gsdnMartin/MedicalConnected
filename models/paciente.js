@@ -15,6 +15,7 @@ const PacienteSchema = new Schema({
     Alergias: String,
     EnfermedadesCronicas: String,
     MotivoIngreso: String,
+    Medicamentos: String,
     Habitacion: {
         type: String,
         unique: true

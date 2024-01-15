@@ -27,7 +27,7 @@ async function recibirInformacion() {
                 aireDato.innerText = "Apagado"
                 air.checked = false
             }else{
-                aireDato.innerText = dato[0].lectura  
+                aireDato.innerText = dato[0].lectura + ' %'
                 air.checked = true
             }
         }catch(e){
