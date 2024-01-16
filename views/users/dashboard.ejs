@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="col d-flex align-items-start">
-            <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="cameraIcon">
+            <div class="icon-square w-50 h-100 bg-light text-white flex-shrink-0 me-3" id="cameraIcon" style="cursor: pointer;">
                 <img src="/png/camera.png" height="100">
             </div>
             <div>
@@ -155,6 +155,7 @@
     air = document.getElementById('airSensor')
     amb = document.getElementById('ambSensor')
     hum = document.getElementById('humSensor')
+    camera = document.getElementById('cameraIcon')
 
     const sensorIsCheck = async(checked, topic) => {
         const data = {state: checked};
@@ -172,6 +173,7 @@
     air.addEventListener('change', function () {sensorIsCheck(this.checked, "air")})
     amb.addEventListener('change', function () {sensorIsCheck(this.checked, "ambiente")})
     hum.addEventListener('change', function () {sensorIsCheck(this.checked, "humedad")})
+    camera.addEventListener('click', function () {window.open("https://www.w3schools.com")})
 
     connect.addEventListener('click', function () {
         if(this.innerText === 'Conectar'){
