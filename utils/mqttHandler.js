@@ -1,4 +1,5 @@
 const mqtt = require('mqtt');
+const fetch1 = require('node-fetch');
 const host = 'ws://localhost:9000'
 const clientId = 'APIRaspi'
 const options = {clientId}
@@ -15,9 +16,8 @@ mqttHandler.subscribe('touch/alert');
 mqttHandler.subscribe('ultrasonico/alert');
 mqttHandler.subscribe('rfid/alert');
 
-mqttHandler.on('message', (topic, message) => {
-    fetch("http://localhost:3000/"+topic, {
-        method: 'POST',
+mqttHandler.on('message', async (topic, message) => {
+    fetch1("http://localhost:3000/"+topic, { method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },

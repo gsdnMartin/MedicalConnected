@@ -4,6 +4,7 @@ const { spawn } = require('child_process');
 const host = 'ws://localhost:9000'
 const clientId = 'raspi'
 const options = { clientId }
+const fileDirection = '/home/mots/Code/MedicalConnected/test.json'
 
 var defaultConf = {
     idDevice: 'Habitacion 1',
@@ -24,14 +25,26 @@ var defaultConf = {
 };
 
 /*
-function initializing(){
-    defaultConf = fs.readFileSync("test.json");
+async function initializing(){
+    await fs.readFile(fileDirection, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log("Inicializando:", data);
+        defaultConf = data
+    })
 }
 
-function writeData(){
-    fs.writeFileSync("test.json",JSON.stringify(defaultConf))
-}
-*/
+async function writeData(){
+    await fs.writeFile(fileDirection,JSON.stringify(defaultConf, err => {
+        if (err) {
+          console.error(err);
+        }
+    }))
+    console.log("Escribiendo:", defaultConf)
+}*/
+
 function sendData(topic, dato, state){
     if(defaultConf.idPaciente !== null){
         pub.publish(topic, JSON.stringify({
@@ -41,7 +54,7 @@ function sendData(topic, dato, state){
                 "lectura": dato,
         }))
     }
-    console.log(topic, dato, defaultConf.idPaciente)
+    //console.log(topic, dato, defaultConf.idPaciente)
 }
 
 function sleep(ms) {
@@ -101,7 +114,7 @@ pub.on('connect', async () => {
                 defaultConf.cardiacoSendOff = false
             }
             if (defaultConf.airState) {
-                pythonExecute('spo2.py', i+1, 'air/guardar')
+                pythonExecute('touch.py', i-1, 'air/guardar')
                 defaultConf.airSendOff = true
             } else if(defaultConf.airSendOff){
                 sendData('air/guardar', -1, false)
@@ -132,6 +145,7 @@ pub.on('connect', async () => {
 pub.on('message', (topic, message) => {
     if (topic === 'conexion/web/searching') {
         if(message.toString() !== 'off' && defaultConf.conexion === false){
+            console.log("Encender")
             defaultConf.idPaciente=message.toString()
             defaultConf.conexion = true
         }
@@ -146,6 +160,7 @@ pub.on('message', (topic, message) => {
             sendData('ultrasonico/alert', -1, false)
             defaultConf.idPaciente = null
             defaultConf.conexion = false
+            console.log("Apagar")
         }
     }
     else if (topic === 'temp' && message.toString() === 'on') {
@@ -187,7 +202,7 @@ pub.on('message', (topic, message) => {
     else{
         console.log(message.toString())
     }
-    
+    //writeData()
 });
 
 pub.on('error', (error) => {

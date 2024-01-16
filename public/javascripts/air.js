@@ -11,23 +11,24 @@ async function recibirInformacion() {
         try{
             const response = await fetch("http://localhost:3000/air/guardar");
             const dato = await response.json();
-            if((dato[0].lectura >= 90 && dato[0].lectura<=100) || dato[0].lectura === -1){
+            if(dato[0].lectura === 1 || dato[0].lectura === -1){
                 aireDato.classList.remove("text-danger")
                 aireDato.classList.add("text-primary")
                 aireIcon.classList.add("bg-light")
-                aireIcon.classList.remove("bg-danger")  
+                aireIcon.classList.remove("bg-danger")
+                aireDato.innerText = 'Buena'
             }else{
                 aireDato.classList.remove("text-primary")
                 aireDato.classList.add("text-danger")
                 aireIcon.classList.remove("bg-light")
                 aireIcon.classList.add("bg-danger")
+                aireDato.innerText = 'Mala'
             }
             air = document.getElementById('airSensor')
             if(dato[0].lectura === -1){
                 aireDato.innerText = "Apagado"
                 air.checked = false
             }else{
-                aireDato.innerText = dato[0].lectura + ' %'
                 air.checked = true
             }
         }catch(e){
