@@ -200,7 +200,13 @@ pub.on('message', (topic, message) => {
         defaultConf.humedadState = false
     }
     else{
-        console.log(message.toString())
+        //console.log(message.toString())
+        const code = spawn('python3', ['escribirRFID.py', message.toString()])
+        code.stdout.on('data', (data) => {
+            msgOld = data.toString()
+            dato = msgOld.slice(0, -1)
+            console.log(dato)
+        })
     }
     //writeData()
 });

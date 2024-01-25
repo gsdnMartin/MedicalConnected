@@ -11,9 +11,9 @@ function sleep(ms) {
 
 pub.on('connect', async () => {
     pub.publish('rfid/alert', JSON.stringify({
-        //"dato": '-1',
+        "dato": '-1',
         //"dato": '65a1e1af829cae64cfc000b8',
-        "dato": '65a1e387829cae64cfc001e1',
+        //"dato": '65a1e387829cae64cfc001e1',
     }))
 });
 
