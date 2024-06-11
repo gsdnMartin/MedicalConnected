@@ -54,7 +54,7 @@ function sendData(topic, dato, state){
                 "lectura": dato,
         }))
     }
-    //console.log(topic, dato, defaultConf.idPaciente)
+    console.log(topic, dato, defaultConf.idPaciente)
 }
 
 function sleep(ms) {
@@ -92,6 +92,7 @@ pub.on('connect', async () => {
             await sleep(2000);
         }
         else{
+            console.log("HOla")
             if (defaultConf.temperatureState) {
                 pythonExecute('temp.py', i, 'temperatura/guardar')
                 defaultConf.temperaturaSendOff = true
@@ -107,35 +108,35 @@ pub.on('connect', async () => {
                 defaultConf.spo2SendOff = false
             }
             if (defaultConf.cardiacoState) {
-                pythonExecute('spo2.py', i-1, 'cardiaco/guardar')
+                pythonExecute('cardiaco.py', i-1, 'cardiaco/guardar')
                 defaultConf.cardiacoSendOff = true
             } else if(defaultConf.cardiacoSendOff){
                 sendData('cardiaco/guardar', -1, false)
                 defaultConf.cardiacoSendOff = false
             }
             if (defaultConf.airState) {
-                pythonExecute('touch.py', i-1, 'air/guardar')
+                pythonExecute('air.py', i-1, 'air/guardar')
                 defaultConf.airSendOff = true
             } else if(defaultConf.airSendOff){
                 sendData('air/guardar', -1, false)
                 defaultConf.airSendOff = false
             }
             if (defaultConf.ambienteState) {
-                pythonExecute('temp.py', i-2, 'ambiente/guardar')
+                pythonExecute('amb.py', i-2, 'ambiente/guardar')
                 defaultConf.ambienteSendOff = true
             } else if(defaultConf.ambienteSendOff){
                 sendData('ambiente/guardar', -1, false)
                 defaultConf.ambienteSendOff = false
             }
             if (defaultConf.humedadState) {
-                pythonExecute('temp.py', i+2, 'humedad/guardar')
+                pythonExecute('hum.py', i+2, 'humedad/guardar')
                 defaultConf.humedadSendOff = true
             } else if(defaultConf.humedadSendOff){
                 sendData('humedad/guardar', -1, false)
                 defaultConf.humedadSendOff = false
             }
             pythonExecute('touch.py', i, 'touch/alert')
-            pythonExecute('touch.py', i+1, 'ultrasonico/alert')
+            pythonExecute('ultrasonic.py', i+1, 'ultrasonico/alert')
             i++
             await sleep(2000);
         } 
@@ -201,13 +202,14 @@ pub.on('message', (topic, message) => {
     }
     else{
         //console.log(message.toString())
-        const code = spawn('python3', ['escribirRFID.py', message.toString()])
+        const code = spawn('python3', ['rfid.py', message.toString()])
         code.stdout.on('data', (data) => {
             msgOld = data.toString()
             dato = msgOld.slice(0, -1)
             console.log(dato)
         })
     }
+    console.log(topic,message.toString())
     //writeData()
 });
 
